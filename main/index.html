@@ -1,74 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quran Everywhere - H</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <h1>Quran Everywhere</h1>
   <p>Hati tenang mendengarkan ayat Suci Al-Quran</p>
   <p>by - @hilmywashil</p>
-  <ul class="surah-list" id="surahList">
-  </ul>
+
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Cari surah...">
+    <button onclick="searchSurah()">Cari</button>
+  </div>
+
+  <ul class="surah-list" id="surahList"></ul>
 
   <script>
     let currentAudio = null;
+    let surahData = [];
 
     fetch('https://quran-api.santrikoding.com/api/surah')
       .then(response => response.json())
       .then(data => {
-        const surahList = document.getElementById('surahList');
-        data.forEach(surah => {
-          const listItem = document.createElement('li');
-          listItem.classList.add('surah-item');
-          
-          const surahTitle = document.createElement('h3');
-          surahTitle.textContent = `${surah.nomor}. ${surah.nama} (${surah.nama_latin})`;
-          listItem.appendChild(surahTitle);
-
-          const surahDetails = document.createElement('p');
-          surahDetails.innerHTML = `
-            <strong>Arti:</strong> ${surah.arti}<br>
-            <strong>Tempat Turun:</strong> ${surah.tempat_turun}<br>
-            <strong>Jumlah Ayat:</strong> ${surah.jumlah_ayat}<br>
-            <strong>Deskripsi:</strong> ${surah.deskripsi}
-          `;
-          listItem.appendChild(surahDetails);
-
-          if (surah.audio) {
-            const audioBtn = document.createElement('button');
-            audioBtn.classList.add('audio-btn');
-            audioBtn.textContent = 'Listen';
-            audioBtn.onclick = () => {
-              if (currentAudio) {
-                currentAudio.pause();
-              }
-
-              currentAudio = new Audio(surah.audio);
-              currentAudio.play();
-            };
-            listItem.appendChild(audioBtn);
-
-            const stopBtn = document.createElement('button');
-            stopBtn.classList.add('stop-btn');
-            stopBtn.textContent = 'Stop';
-            stopBtn.onclick = () => {
-              if (currentAudio) {
-                currentAudio.pause(); 
-                currentAudio = null; 
-              }
-            };
-            listItem.appendChild(stopBtn);
-          }
-
-          surahList.appendChild(listItem);
-        });
+        surahData = data;
+        displaySurahs(surahData);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
       });
+
+    function displaySurahs(surahs) {
+      const surahList = document.getElementById('surahList');
+      surahList.innerHTML = '';
+
+      surahs.forEach(surah => {
+        const listItem = document.createElement('li');
+        listItem.classList.add('surah-item');
+
+        const surahTitle = document.createElement('h3');
+        surahTitle.textContent = `${surah.nomor}. ${surah.nama} (${surah.nama_latin})`;
+        listItem.appendChild(surahTitle);
+
+        const surahDetails = document.createElement('p');
+        surahDetails.innerHTML = `
+          <strong>Arti:</strong> ${surah.arti}<br>
+          <strong>Tempat Turun:</strong> ${surah.tempat_turun}<br>
+          <strong>Jumlah Ayat:</strong> ${surah.jumlah_ayat}<br>
+          <strong>Deskripsi:</strong> ${surah.deskripsi}
+        `;
+        listItem.appendChild(surahDetails);
+
+        if (surah.audio) {
+          const audioBtn = document.createElement('button');
+          audioBtn.classList.add('audio-btn');
+          audioBtn.textContent = 'Listen';
+          audioBtn.onclick = () => {
+            if (currentAudio) {
+              currentAudio.pause();
+            }
+
+            currentAudio = new Audio(surah.audio);
+            currentAudio.play();
+          };
+          listItem.appendChild(audioBtn);
+
+          const stopBtn = document.createElement('button');
+          stopBtn.classList.add('stop-btn');
+          stopBtn.textContent = 'Stop';
+          stopBtn.onclick = () => {
+            if (currentAudio) {
+              currentAudio.pause();
+              currentAudio = null;
+            }
+          };
+          listItem.appendChild(stopBtn);
+        }
+
+        surahList.appendChild(listItem);
+      });
+    }
+
+    function searchSurah() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const filteredSurahs = surahData.filter(surah =>
+        surah.nama.toLowerCase().includes(query) ||
+        surah.nama_latin.toLowerCase().includes(query)
+      );
+      displaySurahs(filteredSurahs);
+    }
   </script>
 </body>
+
 </html>

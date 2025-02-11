@@ -4,11 +4,62 @@ body {
     background-image: url('https://static.vecteezy.com/system/resources/previews/021/970/390/large_2x/green-soft-pastel-podium-ramadhan-background-islamic-ornament-on-green-carpet-background-generative-ai-free-photo.jpeg');
     background-attachment: fixed;
     background-size: cover;
-    font-family: Arial, sans-serif;
+    font-family: 'Quicksand', sans-serif;
     margin: 20px;
-    font-family: quicksand;
 }
 
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    /* Jarak antara input dan tombol */
+    margin-top: 20px;
+}
+
+/* Style Pencarian */
+#searchInput {
+    width: 40%;
+    max-width: 400px;
+    padding: 12px;
+    border: 2px solid #34db55;
+    border-radius: 25px;
+    font-size: 16px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    color: white;
+    transition: all 0.3s ease-in-out;
+}
+
+#searchInput::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+#searchInput:focus {
+    border-color: #229952;
+    outline: none;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Tombol Cari */
+button {
+    padding: 12px 20px;
+    border: none;
+    background-color: #34db55;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #229952;
+    transform: scale(1.1);
+}
+
+/* Style daftar surah */
 .surah-list {
     list-style-type: none;
     padding: 0;
@@ -16,20 +67,24 @@ body {
 }
 
 .surah-item {
-    padding: 10px;
-    margin: 5px 0;
+    padding: 15px;
     border-style: solid;
-    border-radius: 20px;
+    border-color: rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
     justify-content: center;
-    backdrop-filter: blur(5px);
-    margin-bottom: 50px;
+    backdrop-filter: blur(10px);
+    margin-bottom: 30px;
 }
 
+/* Style judul surah */
 .surah-item h3 {
     margin: 0;
-    font-size: 20px;
+    font-size: 22px;
+    font-weight: 600;
+    color: white;
 }
 
+/* Style tombol audio */
 .audio-btn {
     background-color: #4CAF50;
     color: white;
@@ -39,14 +94,15 @@ body {
     cursor: pointer;
     margin-top: 5px;
     margin-right: 10px;
-    transition: 0.5s;
+    transition: 0.3s;
 }
 
-.audio-btn:hover{
+.audio-btn:hover {
     background-color: #45a049;
     transform: scale(1.1);
 }
 
+/* Style tombol stop */
 .stop-btn {
     background-color: #f44336;
     color: white;
@@ -57,16 +113,17 @@ body {
     margin-top: 5px;
     margin-right: 10px;
     transition: transform 0.3s ease-in-out;
-
 }
 
 .stop-btn:hover {
     background-color: #cf1c0f;
     transform: scale(1.1);
-
 }
 
-h1, h3, p{
+/* Style teks */
+h1,
+h3,
+p {
     text-align: center;
     color: white;
 }
