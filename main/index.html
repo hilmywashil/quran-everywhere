@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quran API</title>
+  <link rel="stylesheet" href="public/style.css">
+</head>
+<body>
+  <h1>Quran Everywhere</h1>
+  <ul class="surah-list" id="surahList">
+  </ul>
+
+  <script>
+    let currentAudio = null;
+
+    fetch('https://quran-api.santrikoding.com/api/surah')
+      .then(response => response.json())
+      .then(data => {
+        const surahList = document.getElementById('surahList');
+        data.forEach(surah => {
+          const listItem = document.createElement('li');
+          listItem.classList.add('surah-item');
+          
+          const surahTitle = document.createElement('h3');
+          surahTitle.textContent = `${surah.nomor}. ${surah.nama} (${surah.nama_latin})`;
+          listItem.appendChild(surahTitle);
+
+          const surahDetails = document.createElement('p');
+          surahDetails.innerHTML = `
+            <strong>Arti:</strong> ${surah.arti}<br>
+            <strong>Tempat Turun:</strong> ${surah.tempat_turun}<br>
+            <strong>Jumlah Ayat:</strong> ${surah.jumlah_ayat}<br>
+            <strong>Deskripsi:</strong> ${surah.deskripsi}
+          `;
+          listItem.appendChild(surahDetails);
+
+          if (surah.audio) {
+            const audioBtn = document.createElement('button');
+            audioBtn.classList.add('audio-btn');
+            audioBtn.textContent = 'Listen';
+            audioBtn.onclick = () => {
+              if (currentAudio) {
+                currentAudio.pause();
+              }
+
+              currentAudio = new Audio(surah.audio);
+              currentAudio.play();
+            };
+            listItem.appendChild(audioBtn);
+
+            const stopBtn = document.createElement('button');
+            stopBtn.classList.add('stop-btn');
+            stopBtn.textContent = 'Stop';
+            stopBtn.onclick = () => {
+              if (currentAudio) {
+                currentAudio.pause(); 
+                currentAudio = null; 
+              }
+            };
+            listItem.appendChild(stopBtn);
+          }
+
+          surahList.appendChild(listItem);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  </script>
+</body>
+</html>

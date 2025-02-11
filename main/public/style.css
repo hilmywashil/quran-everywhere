@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+body {
+    background-image: url('https://static.vecteezy.com/system/resources/previews/021/970/390/large_2x/green-soft-pastel-podium-ramadhan-background-islamic-ornament-on-green-carpet-background-generative-ai-free-photo.jpeg');
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    font-family: quicksand;
+}
+
+.surah-list {
+    list-style-type: none;
+    padding: 0;
+    color: whitesmoke;
+}
+
+.surah-item {
+    padding: 10px;
+    margin: 5px 0;
+    border-style: solid;
+    border-radius: 20px;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+    margin-bottom: 50px;
+}
+
+.surah-item h3 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.audio-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-right: 10px;
+    transition: 0.5s;
+}
+
+.audio-btn:hover{
+    background-color: #45a049;
+    transform: scale(1.1);
+}
+
+.stop-btn {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-right: 10px;
+    transition: transform 0.3s ease-in-out;
+
+}
+
+.stop-btn:hover {
+    background-color: #cf1c0f;
+    transform: scale(1.1);
+
+}
+
+h1{
+    text-align: center;
+}
